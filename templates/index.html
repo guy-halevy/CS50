@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    main
+{% endblock %}
+
+{% block main %}
+
+<div  class="search-bar">
+        <form action="/lode" method="post">   <!-- lode = load , sorry for the typo (I am a little bit dyslextic )-->
+            <div>
+                <!-- the location of the planned trip
+                    I used GOOGLE MAPS API in order to get a list of every country/ciry/region in the world -->
+                <label for="to" style="text-align: left;">To:<input id="autocomplete" name="to" placeholder="To" type="text"required >
+            </label>
+            </div>
+            <div>
+                <!-- the dates of the planned trip -->
+                <label for="dates"style="text-align: left;">Dates:<input name="dates" placeholder="dates" type="text" style="width: 150%;" id="datePicker" required></label>
+            </div>
+            <div>
+                <!-- the number of adults in the trip -->
+                <label for="adults"style="text-align: left;">Adults:<input name="Adults" placeholder="Adults" type="text" required></label>
+            </div>
+            <!-- the number of the children, the user use + and - to set the number of the children and a drop down menu to select the age of each one.
+                  I used GPT to help me with this part -->
+            <div class="dropdown input-container">
+                <input type="hidden" id="children_amount" name="children_amount" value=0>
+                <label for="Kids">kids:<button type="button" onclick="decreaseKids()">-</button><span id="numKidsDisplay" class="d723d73d5f" aria-hidden="true">0</span><div class="dropdown-content"><div id="ageFieldsContainer"></div></div><button type="button" onclick="increaseKids()">+</button></div></label>
+            </div>
+
+            <div class="search-bar">
+                <div>
+                    <!-- list of attractions that the user liked in the past, so GPT can learn and suggest similar attractions -->
+                    <label for="like"style="text-align: left;">Things you like to do:<input name="like" placeholder="Things you like to do" type="text" ></label>
+                </div>
+
+                <div>
+                    <!-- list of places that the user like to visit in this trip, so GPT can take into consideration while planning the trip -->
+                    <label for="places"style="text-align: left;">Places you would like to visit:<input name="Places" placeholder="Places you would like to visit" type="text" ></label>
+                </div>
+            </div></p><div>
+            <!-- I created the icon myself -->
+                <button type="submit" style="width:7% ; background-color: inherit;" name="index" value="index"><img src="static/flight-icon.png"></button>
+            </div></form> </div>
+            <div >
+
+                <!-- the user can see and select all the trips that he planned in the past
+                    (sory for the typos cantrise = countries and cantri = country ,  I am a little bit dyslextic...)-->
+            {% if session["user_id"] %}{% if cantrise %}{% for cantri in cantrise %}
+                <form  action="/" method="post"><div>
+                    <input type="hidden" name="cantri" value="{{ cantri.cantrise }}">
+                    <button name="home" value="home" type="submit">{{cantri.cantrise}}</button>
+                </div></form>
+            {% endfor %}{% endif %}{% endif %}
+        </div>
+
+
+{% endblock %}
+input.required = true;

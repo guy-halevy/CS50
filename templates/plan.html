@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+<!-- show the plan for this trip -->
+
+{% block title %}
+    plan
+{% endblock %}
+
+{% block main %}
+<!-- write the trip charectristics -->
+<p><div class="text-center"><b>{{ visbol_prompt }}</b></div></p>
+{% if session["user_id"] %} <!-- the user is loged in -->
+<form action="/lode" method="post">
+    {% for tab in tabs %}{% if tabs[tab] %} <!-- go over all the trip dates and create a table per each day-->
+        <p><div class="text-center"><td><b>{{ tabs[tab] }}</b></td></div></p> <!-- write the specific date -->
+        <div class="section">
+            <table>
+                <tbody>
+                    {% for line in response_content %}{% if line.date  == tabs[tab] %}  <!-- as long as the date for this line is the same as the date above, then this is still the same day-->
+                    <tr>
+                        <input type="hidden" name="id" value="{{ line.id }}"> <!-- give each line an ID number, so later Ill use it in the customize/costomise code-->
+                        <td>{{ line.time }}</td>  <!-- print date hour -->
+                        <td>
+                                <!-- for customize/costomise - the user can decide if to spend more or less time in thie activity -->
+                                <!--<label for="more">more<input class="btn btn-primary" name="time_{{ line.id }}" type="radio" id="showRadio" value="more"></label>
+                                <label for="less">less<input class="btn btn-primary" name="time_{{ line.id }}" type="radio" id="showRadio" value="less"></label>-->
+                        </td>
+                        <td>{{ line.location }}</td> <!-- the location/place-name the user to stay at this time -->
+                        <td>{{ line.description }}</td> <!-- the description of the place that the user is planned to be at this time -->
+                        <td> <!-- for customize/costomise - the user can decide if to pass this place at all, or to like it and hint GPT to have more similar activities -->
+                                <label for="pass">pass<input class="btn btn-primary" name="do_{{ line.id }}" type="radio" id="showRadio" value="pass"></label>
+                                <label for="like">like<input class="btn btn-primary" name="do_{{ line.id }}" type="radio" id="showRadio" value="like"></label>
+                        </td>
+                    </tr>
+                    {% endif %}{% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}{% endfor %}
+    <input type="hidden" name="name" value="{{ csv }}">
+    <button type="submit" value="costomise">Customize</button>
+</form>
+<form action="/" method="get">
+    <button type="submit" >Home</button>
+</form>
+{% else %} <!-- the user is not loged in -->
+{% for tab in tabs %}{% if tabs[tab] %} <!-- go over all the trip dates and create a table per each day-->
+        <p><div class="text-center"><td><b>{{ tabs[tab] }}</b></td></div></p> <!-- write the specific date -->
+        <div class="section">
+            <table>
+                <tbody>
+                    {% for line in response_content %}{% if line.date == tabs[tab] %} <!-- as long as the date for this line is the same as the date above, then this is still the same day-->
+                    <tr>
+                        <input type="hidden" name="id" value="{{ line.id }}"> <!-- give each line an ID number, so later Ill use it in the customize/costomise code-->
+                        <td>{{ line.time }}</td> <!-- print date hour -->
+                        <td>{{ line.location }}</td> <!-- the location/place-name the user to stay at this time -->
+
+
+                        <!-- the description of the place that the user is planned to be at this time -->
+                        <td>{{ line.description }} <!-- <label for="Details">Details<span class="d723d73d5f" aria-hidden="true">Details</span><div class="dropdown-content"><div id="Details"></div></div></label><!----<a href="javascript:void(0);" onclick="getPlaceDetails('{{ line.location }}')">Details</a>--></td>
+                    </tr>
+                    {% endif %}{% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}{% endfor %}
+    <form action="/save" method="post">  <!-- a user that havn't loged in can login and save his planed trip -->
+        <input type="hidden" name="visbol_prompt" value="{{ visbol_prompt }}">
+        <input type="hidden" name="save" value="{{ csv }}">  <!-- the name of the trip plan -->
+        <button type="submit">save</button>
+    </form>
+{% endif %}
+{% endblock %}

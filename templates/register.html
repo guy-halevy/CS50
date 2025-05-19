@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+<!-- this is based on the Register page that I made in the Finance excersize -->
+
+{% block title %}
+    register
+{% endblock %}
+
+{% block main %}
+<form action="/register" method="post">
+    <div class="mb-3">
+        <input autocomplete="off" autofocus="" class="form-control mx-auto w-auto" name="username" placeholder="Username" type="text" required>
+    </div>
+    <div class="mb-3">
+        <input class="form-control mx-auto w-auto" name="password" placeholder="Password" type="password" required>
+    </div>
+    <div class="mb-3">
+        <input class="form-control mx-auto w-auto" name="confirmation" placeholder="Password (again)" type="password" required>
+    </div>
+    <input type="hidden" name="visbol_prompt" value="{{ visbol_prompt }}"> <!-- save the planed trip to a user that didnt login yet -->
+    <input type="hidden" name="save" value="{{ name }}">
+    <button class="btn btn-primary" type="submit">register</button>
+</form>
+<p>--------------------------------------------------------or--------------------------------------------------------</p>
+<!-- the user can move from Login to Register -->
+<form action="/login_register" method="post">
+    <input type="hidden" name="visbol_prompt" value="{{ visbol_prompt }}">
+    <input type="hidden" name="save" value="{{ name }}">
+    <input type="hidden" name="type" value="login">
+    <button class="btn btn-primary" name="type" value="login" type="submit">login</button>
+</form>
+{% endblock %}

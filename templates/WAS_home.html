@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    sell
+{% endblock %}
+
+{% block main %}
+<div class="search-bar">
+    <form action="/" method="post">
+        <p>
+            <!-- <div>
+                <input name="from" placeholder="From" type="text" required>
+            </div>--><div>
+                <input name="to" placeholder="To" type="text" required>
+            </div><div>
+                <input name="Adults" placeholder="Adults" type="text" required>
+            </div><div>
+                <input name="kids" placeholder="Kids" type="text" required>
+            </div><div>
+                <input name="dates" placeholder="dates" type="text" style="width: 150%;" id="datePicker" required>
+            </div></div>
+            <div class="search-bar">
+                <div>
+                    <input name="like" placeholder="Things you like to do" type="text" >
+                </div>
+                <div>
+                    <input name="Places" placeholder="Places you would like to visit" type="text" >
+                </div>
+            </div><!--<div>
+                <input type="file" id="myFile" name="filename">
+            </div>--></p><div>
+                <button type="submit">Submit</button>
+            </div>
+    </form>
+    <div class="section">
+
+
+
+
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+flatpickr("#datePicker", {
+    dateFormat: "Y-m-d",
+    minDate: "today",
+    mode: "range"
+});
+</script>
+{% endblock %}

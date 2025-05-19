@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+<!-- this is based on the loging page that I made in the Finance excersize -->
+{% block title %}
+    login
+{% endblock %}
+
+{% block main %}
+<form action="/login" method="post">
+    <div class="mb-3">
+        <input autocomplete="off" autofocus="" class="form-control mx-auto w-auto" name="username" placeholder="Username" type="text" required>
+    </div>
+    <div class="mb-3">
+        <input class="form-control mx-auto w-auto" name="password" placeholder="Password" type="password" required>
+    </div>
+    <input type="hidden" name="visbol_prompt" value="{{ visbol_prompt }}">   <!-- save the planed trip to a user that didnt login yet -->
+    <input type="hidden" name="save" value="{{ name }}">
+    <button class="btn btn-primary" type="submit">Log In</button>
+</form>
+<p>--------------------------------------------------------or--------------------------------------------------------</p>
+<!-- the user can move from Login to Register -->
+<form action="/login_register" method="post">
+    <input type="hidden" name="visbol_prompt" value="{{ visbol_prompt }}">
+    <input type="hidden" name="save" value="{{ name }}">
+    <input type="hidden" name="type" value="register">
+    <button class="btn btn-primary" name="type" value="register" type="submit">register</button>
+</form>
+{% endblock %}

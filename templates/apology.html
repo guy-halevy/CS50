@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    apology
+{% endblock %}
+<!-- I use the apology from "Finance" , but changed the picture to the one I created -->
+{% block main %}
+<img alt="{{ top }}" class="border img-fluid" src="https://api.memegen.link/images/custom/{{ top | urlencode }}/{{ bottom | urlencode }}.jpg?background=https%3A%2F%2Ftravelsandpassions.com%2Fwp-content%2Fuploads%2F2020%2F04%2FCancelled-flight.png&watermark=MemeComplete.com&token=oxop9zw6lakfc1veew0u" title="{{ top }}">
+{% endblock %}

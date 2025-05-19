@@ -1,0 +1,52 @@
+<!-- this is the loading screen that the user sees when waiting for a new/modified plan
+Because it takes time for GPT to process the data, I creatred this loading screen -->
+
+{% extends "layout.html" %}
+
+{% block title %}
+    loading
+{% endblock %}
+
+{% block main %}
+<div class="mid"><img src="static/flight-lodeing.png"  alt="Spinning image" class="loader"></div> <!-- spinning picture of an airplan -->
+{% if index %} <!-- this is a new plan -->
+<!-- get the data from Index and send it to the python code -->
+<form action="/"  id="autoSubmitForm" method="post">
+  {% if try %}<input value="{{ try }}" name="try" type="hidden" >{% endif %}
+  <input value="{{ visbol_prompt }}" name="visbol_prompt" type="hidden"required >
+  <input value="{{ to }}" name="to" type="hidden" required>
+  <input value="{{ Adults }}" name="Adults" type="hidden" required>
+  <input value="{{ dates }}" name="dates" type="hidden" required>
+  <input value="{{ kids }}" name="kids" type="hidden" >
+  <input value="{{ children_amount }}" name="children_amount" type="hidden" >
+  <input value="{{ like }}" name="like" type="hidden" >
+  <input value="{{ Places }}" name="Places" type="hidden" >
+</form>
+{% else %} <!-- this is a customization of an existing plan -->
+<!-- get the data from customize (or "costomise" as I put it in the code... ) and send it to the python code -->
+<form action="/costomise"  id="autoSubmitForm" method="post">
+  {% if try %}<input value="{{ try }}" name="try" type="hidden" >{% endif %}
+  <input value="{{ costomise }}" name="costomise" type="hidden"required >
+  <input value="{{ csv }}" name="csv" type="hidden" required>
+  </form>
+{% endif %}
+<style>
+  /* I took this CSS part from W3 school */
+  .loader {
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+  }
+
+  /* Safari */
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(-360deg); }
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(-360deg); }
+  }
+          </style>
+
+{% endblock %}
