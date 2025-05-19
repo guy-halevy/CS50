@@ -2,5 +2,5 @@ flask
 cs50
 flask-session
 werkzeug
-openai
+openai==0.28
 Jinja2
