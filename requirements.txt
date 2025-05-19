@@ -4,3 +4,5 @@ flask-session
 werkzeug
 openai>=1.10.0
 Jinja2
+gunicorn
+gunicorn
