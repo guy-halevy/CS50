@@ -1,0 +1,6 @@
+flask
+cs50
+flask-session
+werkzeug
+openai
+Jinja2
